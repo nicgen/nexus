@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  nexus:
+    image: sonatype/nexus3:latest
+    container_name: nexus
+    restart: unless-stopped
+    volumes:
+      - ./nexus-data:/nexus-data
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.nexus.rule=Host(`nexus.local.hello-there.net`)"
+      - "traefik.http.routers.nexus.entrypoints=websecure"
+      - "traefik.http.routers.nexus.tls.certresolver=cloudflare"
+      - "traefik.http.services.nexus.loadbalancer.server.port=8081"
+      - "traefik.docker.network=traefik_net"
+    networks:
+      - traefik_net
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
+
+networks:
+  traefik_net:
+    external: true
