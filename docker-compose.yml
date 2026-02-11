@@ -12,7 +12,13 @@ services:
       - "traefik.http.routers.nexus.rule=Host(`nexus.local.hello-there.net`)"
       - "traefik.http.routers.nexus.entrypoints=websecure"
       - "traefik.http.routers.nexus.tls.certresolver=cloudflare"
+      - "traefik.http.routers.nexus.service=nexus"
       - "traefik.http.services.nexus.loadbalancer.server.port=8081"
+      - "traefik.http.routers.docker.rule=Host(`docker.local.hello-there.net`)"
+      - "traefik.http.routers.docker.entrypoints=websecure"
+      - "traefik.http.routers.docker.tls.certresolver=cloudflare"
+      - "traefik.http.routers.docker.service=docker"
+      - "traefik.http.services.docker.loadbalancer.server.port=8082"
       - "traefik.docker.network=traefik_net"
     networks:
       - traefik_net
