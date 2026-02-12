@@ -1,32 +1,45 @@
-# Implementation Plan - Configuring Jenkins for Nexus
+# Implementation Plan - Buy-02 Audit Visual Evidence
 
 ## Goal Description
-Resume the configuration of Jenkins for Nexus by resolving port conflicts, starting the Nexus service, and configuring Jenkins credentials to enable artifact publishing.
+Enhance `buy-02/reference/AUDIT_ANSWERS.md` with visual evidence (screenshots/logs) to prove compliance with `buy-02/reference/AUDIT.md` requirements.
 
 ## User Review Required
-> [!WARNING]
-> **Pipeline Failed**: The recent build failed with "wrapper script does not seem to be touching the log file".
-> **Likely Causes**: Resource exhaustion (RAM) due to parallel Maven builds, or missing `mvn` tool configuration.
+> [!NOTE]
+> **Action**: I will Capture evidence and embed it into the markdown file.
+> **Constraint**: "Just plan, do not do anything for the moment" - User.
 
 ## Proposed Changes
 
-### Jenkins Configuration
-#### [MODIFY] [buy-02/Jenkinsfile](file:///home/nic/dev/java/nexus/buy-02/Jenkinsfile)
-- **Deployment**: Pass `-Dnexus.url=http://nexus:8081` to `mvn deploy` to override the default URL.
+### Documentation
+#### [MODIFY] [buy-02/reference/AUDIT_ANSWERS.md](file:///home/nic/dev/java/nexus/buy-02/reference/AUDIT_ANSWERS.md)
+Update the document to include the following evidences:
 
-### Maven Configuration
-#### [MODIFY] [buy-02/services/*/pom.xml](file:///home/nic/dev/java/nexus/buy-02/services/)
-- **Properties**: Add `<nexus.url>http://nexus.local.hello-there.net</nexus.url>` default property.
-- **DistributionManagement**: Use `${nexus.url}` in repository URLs.
+#### 1. Functional - Database & Relations
+*   **Requirement**: "Has the database design been correctly implemented?" / "Snapshot Pattern"
+*   **Evidence**: Screenshot/Snippet of a MongoDB `db.orders.find()` result showing the **embedded product snapshot** (name, price) inside an Order document.
+*   **Asset**: `evidence/db_order_snapshot.json` (or png)
 
+#### 2. Functional - Shopping Cart Persistence
+*   **Requirement**: "Are the added products still in the shopping cart...?"
+*   **Evidence**: Screenshot of the Application Cart page + DevTools LocalStorage pane showing the persisted cart data.
+*   **Asset**: `evidence/app_cart_persistence.png`
+
+#### 3. Code Quality - SonarQube
+*   **Requirement**: "Are code quality issues... addressed?"
+*   **Evidence**: Screenshot of the **SonarQube Dashboard** for `mr-jenk` showing:
+    *   Quality Gate: Passed
+    *   Coverage: >80%
+*   **Asset**: `evidence/sonarqube_dashboard.png`
+
+#### 4. Collaboration - CI/CD Pipeline
+*   **Requirement**: "Is the CI/CD pipeline correctly set up...?"
+*   **Evidence**: Screenshot of **Jenkins Blue Ocean** or Stage View showing a successful pipeline run (Test Backend -> Publish -> Build Image).
+*   **Asset**: `evidence/jenkins_pipeline.png`
+
+#### 5. Collaboration - Git History
+*   **Requirement**: "Are branches merged correctly?"
+*   **Evidence**: Screenshot of `git log --graph` showing the merge of `fix/debug-pipeline` into `main`.
+*   **Asset**: `evidence/git_graph.png`
 
 ## Verification Plan
-
-### Automated Tests
-- **Retry Pipeline**: Run the pipeline again.
-- **Success Criteria**: 
-    - `Test Backend` stage passes (sequentially or parallel).
-    - `Publish Artifacts` stage attempts connection to Nexus.
-
-### Manual Verification
-- **Console Logs**: Review logs for `mvn -version` output (if added) or successful test execution.
+- **Review**: User will check if the proposed evidences effectively answer the audit questions.
