@@ -22,7 +22,7 @@ This guide provides evidence and explanations for each audit criterion listed in
 >     *   **Docker**: A hosted Docker repository (`docker-hosted`) is configured on port `8082` (exposed via Traefik as `docker.local.hello-there.net`).
 >
 > **Screenshot**:
-> ![Nexus Repositories](reference/evidence/nexus_repositories.png)
+> ![Nexus Repositories](evidence/nexus_repositories.png)
 
 ### Part - Development and Structure
 
@@ -61,7 +61,7 @@ This guide provides evidence and explanations for each audit criterion listed in
 >     *   **Releases**: Configuration allows for release versions to be pushed to `maven-releases`.
 >
 > **Screenshot**:
-> ![Nexus Artifact Versions](reference/evidence/nexus_components.png)
+> ![Nexus Artifact Versions](evidence/nexus_components.png)
 
 #### Q? - Are different versions of artifacts effectively retrieved and managed?
 > **YES**.
@@ -76,7 +76,7 @@ This guide provides evidence and explanations for each audit criterion listed in
 >     *   **Pipeline**: The `Build & Push Images` stage in [`Jenkinsfile`](https://github.com/nicgen/buy-02/blob/main/Jenkinsfile) logs in to the registry and pushes images tagged with the build number and `latest`.
 >
 > **Screenshot**:
-> ![Nexus Docker Images](reference/evidence/nexus_docker.png)
+> ![Nexus Docker Images](evidence/nexus_docker.png)
 
 ### Part - Continuous Integration (CI)
 
@@ -90,7 +90,7 @@ This guide provides evidence and explanations for each audit criterion listed in
 >     5.  `Build & Push Images` (Docker Push)
 >
 > **Screenshot**:
-> ![Jenkins Pipeline](reference/evidence/jenkins_pipeline.png)
+> ![Jenkins Pipeline](evidence/jenkins_pipeline.png)
 
 ### Part - Documentation
 
@@ -117,7 +117,7 @@ This guide provides evidence and explanations for each audit criterion listed in
 >     *   **Realms**: The `Docker Bearer Token Realm` was activated to allow `docker login`.
 >
 > **Screenshot**:
-> ![Nexus Security Realms](reference/evidence/nexus_realms.png)
+> ![Nexus Security Realms](evidence/nexus_realms.png)
 
 #### Q? - +Are repository-level permissions effectively configured?
 > **YES**.
